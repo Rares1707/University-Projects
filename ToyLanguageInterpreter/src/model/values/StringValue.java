@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class StringValue implements IValue{
 
-    String value;
+    private String value;
 
     public StringValue(String value) {
         this.value = value;

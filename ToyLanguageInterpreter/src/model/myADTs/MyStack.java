@@ -1,7 +1,7 @@
 package model.myADTs;
 import java.util.*;
 public class MyStack<T> implements MyIStack<T>{
-    Stack<T> stack;
+    private Stack<T> stack;
 
     public MyStack() {
         this.stack = new Stack<T>();

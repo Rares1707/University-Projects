@@ -28,9 +28,11 @@ public class Controller {
         return statementToBeExecuted.execute(currentStateOfProgram);
     }
 
-    public void completeExecutionOfTheProgram(int programIndex) throws MyException, IOException {
+    public void completeExecutionOfTheProgram(int programIndex) throws MyException {
         repository.setIndexOfProgram(programIndex);
         ProgramState currentStateOfProgram = repository.getCurrentProgramState();
+
+        currentStateOfProgram.resetProgramState();
 
         MyIStack<IStatement> stack = currentStateOfProgram.getStack();
 

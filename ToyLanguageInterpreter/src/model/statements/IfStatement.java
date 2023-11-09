@@ -10,9 +10,9 @@ import java.util.Objects;
 
 public class IfStatement implements IStatement{
 
-    IExpression expression;
-    IStatement thenStatement;
-    IStatement elseStatement;
+    private IExpression expression;
+    private IStatement thenStatement;
+    private IStatement elseStatement;
 
     public IfStatement(IExpression expression, IStatement thenStatement, IStatement elseStatement) {
         this.expression = expression;
@@ -34,7 +34,7 @@ public class IfStatement implements IStatement{
         {
             throw new MyException("expression is not a boolean");
         }
-        if (expression.evaluate(state.getSymbolTable()) != new BoolValue(false))
+        if ( ((BoolValue) expression.evaluate(state.getSymbolTable())).getValue() == true)
         {
             state.getStack().push(thenStatement);
         }

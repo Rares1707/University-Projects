@@ -7,9 +7,9 @@ import model.values.IntValue;
 import model.values.IValue;
 
 public class ArithmeticExpression implements IExpression{
-    IExpression firstExpression;
-    IExpression secondExpression;
-    int operator;
+    private IExpression firstExpression;
+    private IExpression secondExpression;
+    private int operator;
 
     public ArithmeticExpression(int operator, IExpression firstExpression, IExpression secondExpression) {
         this.firstExpression = firstExpression;

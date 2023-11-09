@@ -5,8 +5,8 @@ import model.ProgramState;
 import model.myADTs.MyIStack;
 
 public class CompoundStatement implements IStatement{
-    IStatement firstStatement;
-    IStatement secondStatement;
+    private IStatement firstStatement;
+    private IStatement secondStatement;
 
     public CompoundStatement(IStatement firstStatement, IStatement secondStatement) {
         this.firstStatement = firstStatement;

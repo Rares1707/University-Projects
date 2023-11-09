@@ -6,7 +6,7 @@ import model.expressions.IExpression;
 
 
 public class PrintStatement implements IStatement{
-    IExpression expression;
+    private IExpression expression;
 
     public PrintStatement(IExpression expression) {
         this.expression = expression;

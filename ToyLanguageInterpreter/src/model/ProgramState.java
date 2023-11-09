@@ -1,23 +1,41 @@
 package model;
 
-import model.myADTs.MyIDictionary;
-import model.myADTs.MyIList;
-import model.myADTs.MyIStack;
+import model.myADTs.*;
 import model.statements.IStatement;
 import model.values.IValue;
 
 public class ProgramState {
-    MyIStack<IStatement> executionStack;
-    MyIDictionary<String, IValue> symbolTable;
-    MyIList<IValue> outputList;
-    IStatement originalProgram; //optional field, but good to have
+    private MyIStack<IStatement> executionStack;
+    private MyIDictionary<String, IValue> symbolTable;
+    private MyIList<IValue> outputList;
+
+    private FileTable fileTable;
+    IStatement originalProgram;
+
     public ProgramState(MyIStack<IStatement> stack, MyIDictionary<String, IValue> symbolTable, MyIList<IValue>
-            output, IStatement program){
+            output, IStatement program, FileTable fileTable){
         executionStack = stack;
         this.symbolTable = symbolTable;
         this.outputList = output;
-        originalProgram=program.deepCopy();//recreate the entire original prg
+        originalProgram=program.deepCopy();
         stack.push(program);
+        this.fileTable = fileTable;
+    }
+
+    public void resetProgramState()
+    {
+        executionStack.clear();
+        symbolTable.clear();
+        outputList.clear();
+        executionStack.push(originalProgram.deepCopy());
+    }
+
+    public FileTable getFileTable() {
+        return fileTable;
+    }
+
+    public void setFileTable(FileTable fileTable) {
+        this.fileTable = fileTable;
     }
 
     public void setExecutionStack(MyIStack<IStatement> executionStack) {

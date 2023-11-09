@@ -14,25 +14,17 @@ import java.util.ArrayList;
 
 public class Repository implements IRepository{
 
-    ArrayList <ProgramState> listOfPrograms;
+    private ArrayList <ProgramState> listOfPrograms;
 
-    String logFilePath;
+    private String logFilePath;
 
-    int programIndex;
+    private int programIndex;
 
     public Repository(IStatement program, String logFilePath) {
-        //This might become a newThread() function later
-//        MyIStack<IStatement> executionStack = new MyStack<IStatement>();
-//        MyIDictionary<String, IValue> symbolTable = new MyDictionary<String, IValue>();
-//        MyIList<IValue> outputOfProgram = new MyList<IValue>();
-//
         listOfPrograms = new ArrayList<ProgramState>();
         addProgram(program);
         this.logFilePath = logFilePath;
         programIndex = 0;
-
-//        ProgramState firstProgramState = new ProgramState(executionStack, symbolTable, outputOfProgram, program);
-//        listOfPrograms.add(firstProgramState);
     }
 
 
@@ -58,8 +50,9 @@ public class Repository implements IRepository{
         MyIStack<IStatement> executionStack = new MyStack<IStatement>();
         MyIDictionary<String, IValue> symbolTable = new MyDictionary<String, IValue>();
         MyIList<IValue> outputOfProgram = new MyList<IValue>();
+        FileTable fileTable = new FileTable();
 
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputOfProgram, program);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputOfProgram, program, fileTable);
         listOfPrograms.add(programState);
     }
 
@@ -70,15 +63,16 @@ public class Repository implements IRepository{
             PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
             logFile.println(stateToBePrinted);
             logFile.close();
-
-//            FileWriter fileWriter = new FileWriter(logFilePath);
-//            fileWriter.write(stateToBePrinted);
-//            fileWriter.close();
         }
         catch (IOException error)
         {
             throw new MyException(error.getMessage());
         }
+    }
+
+    void addFileToCurrentProgram(String filePath)
+    {
+        //TODO maybe
     }
 
 }

@@ -9,8 +9,8 @@ import model.values.IntValue;
 import java.util.Objects;
 
 public class VariableDeclarationStatement implements IStatement{
-    String variableName;
-    IType variableType;
+    private String variableName;
+    private IType variableType;
 
     public VariableDeclarationStatement(String variableName, IType variableType) {
         this.variableName = variableName;

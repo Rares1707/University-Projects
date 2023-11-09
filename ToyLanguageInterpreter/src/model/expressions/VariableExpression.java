@@ -5,7 +5,7 @@ import model.myADTs.MyIDictionary;
 import model.values.IValue;
 
 public class VariableExpression implements IExpression{
-    String idOfVariable;
+    private String idOfVariable;
 
     public VariableExpression(String idOfVariable) {
         this.idOfVariable = idOfVariable;

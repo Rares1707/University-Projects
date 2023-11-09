@@ -4,7 +4,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class MyDictionary <K, V> implements MyIDictionary<K, V>{
-    Dictionary<K, V> dictionary;
+    private Hashtable<K, V> dictionary;
 
     public MyDictionary() {
         dictionary = new Hashtable<K, V>();
@@ -36,7 +36,12 @@ public class MyDictionary <K, V> implements MyIDictionary<K, V>{
     }
 
     @Override
+    public void clear() {
+        dictionary.clear();
+    }
+
+    @Override
     public String toString() {
-        return "MyDictionary: " + dictionary.toString();
+        return "Symbol Table: " + dictionary.toString();
     }
 }

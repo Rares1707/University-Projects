@@ -1,0 +1,80 @@
+Execution Stack: [(int a;(int b;(a=2+3*5;(b=a+1;print(b)))))]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b)))), int a]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b))))]
+Symbol Table: {a=0}
+Output: []
+
+Execution Stack: [(a=2+3*5;(b=a+1;print(b))), int b]
+Symbol Table: {a=0}
+Output: []
+
+Execution Stack: [(a=2+3*5;(b=a+1;print(b)))]
+Symbol Table: {b=0, a=0}
+Output: []
+
+Execution Stack: [(b=a+1;print(b)), a=2+3*5]
+Symbol Table: {b=0, a=0}
+Output: []
+
+Execution Stack: [(b=a+1;print(b))]
+Symbol Table: {b=0, a=17}
+Output: []
+
+Execution Stack: [print(b), b=a+1]
+Symbol Table: {b=0, a=17}
+Output: []
+
+Execution Stack: [print(b)]
+Symbol Table: {b=18, a=17}
+Output: []
+
+Execution Stack: []
+Symbol Table: {b=18, a=17}
+Output: [18]
+
+Execution Stack: [(int a;(int b;(a=2+3*5;(b=a+1;print(b)))))]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b)))), int a]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b))))]
+Symbol Table: {a=0}
+Output: []
+
+Execution Stack: [(a=2+3*5;(b=a+1;print(b))), int b]
+Symbol Table: {a=0}
+Output: []
+
+Execution Stack: [(a=2+3*5;(b=a+1;print(b)))]
+Symbol Table: {b=0, a=0}
+Output: []
+
+Execution Stack: [(b=a+1;print(b)), a=2+3*5]
+Symbol Table: {b=0, a=0}
+Output: []
+
+Execution Stack: [(b=a+1;print(b))]
+Symbol Table: {b=0, a=17}
+Output: []
+
+Execution Stack: [print(b), b=a+1]
+Symbol Table: {b=0, a=17}
+Output: []
+
+Execution Stack: [print(b)]
+Symbol Table: {b=18, a=17}
+Output: []
+
+Execution Stack: []
+Symbol Table: {b=18, a=17}
+Output: [18]
+

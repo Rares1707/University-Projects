@@ -43,7 +43,7 @@ public class Main {
                                         new AssignmentStatement("v", new ValueExpression(new IntValue(3)))),
                                         new PrintStatement(new VariableExpression("v"))))));
 
-        IRepository repository = new Repository(program1, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile.txt");
+        IRepository repository = new Repository(program1, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile1.txt");
         repository.addProgram(program2);
         repository.addProgram(program3);
         Controller controller = new Controller(repository);

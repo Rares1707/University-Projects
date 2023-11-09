@@ -11,8 +11,8 @@ import model.values.IValue;
 
 
 public class AssignmentStatement implements IStatement{
-    String idOfVariable;
-    IExpression expressionToBeAssigned;
+    private String idOfVariable;
+    private IExpression expressionToBeAssigned;
 
     public AssignmentStatement(String idOfVariable, IExpression expressionToBeAssigned) {
         this.idOfVariable = idOfVariable;

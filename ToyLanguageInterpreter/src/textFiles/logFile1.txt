@@ -1,0 +1,144 @@
+Execution Stack: [(string varf;(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))))]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))), string varf]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))))]
+Symbol Table: {varf=}
+Output: []
+
+Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))), varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in]
+Symbol Table: {varf=}
+Output: []
+
+Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))), openReadFile(varf)]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))), int varc]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))]
+Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf)))), read(varf, varc)]
+Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf))))]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);close(varf))), print(varc)]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);close(varf)))]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [(print(varc);close(varf)), read(varf, varc)]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [(print(varc);close(varf))]
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [close(varf), print(varc)]
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [close(varf)]
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15, 50]
+
+Execution Stack: []
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15, 50]
+
+Execution Stack: [(string varf;(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))))]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))), string varf]
+Symbol Table: {}
+Output: []
+
+Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))))]
+Symbol Table: {varf=}
+Output: []
+
+Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))), varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in]
+Symbol Table: {varf=}
+Output: []
+
+Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))), openReadFile(varf)]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))), int varc]
+Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))]
+Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf)))), read(varf, varc)]
+Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf))))]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);close(varf))), print(varc)]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: []
+
+Execution Stack: [(read(varf, varc);(print(varc);close(varf)))]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [(print(varc);close(varf)), read(varf, varc)]
+Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [(print(varc);close(varf))]
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [close(varf), print(varc)]
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15]
+
+Execution Stack: [close(varf)]
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15, 50]
+
+Execution Stack: []
+Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Output: [15, 50]
+

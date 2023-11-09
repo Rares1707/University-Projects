@@ -10,8 +10,8 @@ import model.values.IntValue;
 
 
 public class LogicExpression implements IExpression{
-    IExpression firstExpression;
-    IExpression secondExpression;
+    private IExpression firstExpression;
+    private IExpression secondExpression;
     int operator;
 
     public LogicExpression(IExpression firstExpression, IExpression secondExpression, int operator) {
