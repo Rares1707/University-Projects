@@ -3,6 +3,7 @@ package model.statements;
 import model.MyException;
 import model.ProgramState;
 import model.expressions.IExpression;
+import model.myADTs.MyIHeap;
 import model.types.IntType;
 import model.types.StringType;
 import model.values.IValue;
@@ -28,7 +29,9 @@ public class ReadNumberFromFile implements IStatement{
             throw new MyException("variable is not declared");
         if (!state.getSymbolTable().get(variableName).getType().equals(new IntType()))
             throw new MyException(("variable is not of type int"));
-        IValue fileNameValue = fileNameExpression.evaluate(state.getSymbolTable());
+
+        MyIHeap heap = state.getHeap();
+        IValue fileNameValue = fileNameExpression.evaluate(state.getSymbolTable(), heap);
         if (!fileNameValue.getType().equals(new StringType()))
             throw new MyException("file name is not a string");
 

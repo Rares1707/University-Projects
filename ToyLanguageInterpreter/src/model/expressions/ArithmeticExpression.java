@@ -2,6 +2,7 @@ package model.expressions;
 
 import model.MyException;
 import model.myADTs.MyIDictionary;
+import model.myADTs.MyIHeap;
 import model.types.IntType;
 import model.values.IntValue;
 import model.values.IValue;
@@ -17,14 +18,14 @@ public class ArithmeticExpression implements IExpression{
         this.operator = operator;
     }
 
-    public IValue evaluate(MyIDictionary<String, IValue> table) throws MyException {
+    public IValue evaluate(MyIDictionary<String, IValue> table, MyIHeap heap) throws MyException {
         if (operator != '*' && operator != '+' && operator != '/' && operator != '-')
             throw new MyException("arithmetic operator is not supported");
 
         IValue firstValue,secondValue;
-        firstValue = firstExpression.evaluate(table);
+        firstValue = firstExpression.evaluate(table, heap);
         if (firstValue.getType().equals(new IntType())) {
-            secondValue = secondExpression.evaluate(table);
+            secondValue = secondExpression.evaluate(table, heap);
             if (secondValue.getType().equals(new IntType())) {
                 IntValue i1 = (IntValue) firstValue;
                 IntValue i2 = (IntValue)secondValue;

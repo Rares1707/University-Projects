@@ -1,21 +1,17 @@
 package view;
 
 import controller.Controller;
-import model.MyException;
-import model.expressions.ArithmeticExpression;
-import model.expressions.ValueExpression;
-import model.expressions.VariableExpression;
+import model.expressions.*;
 import model.statements.*;
 import model.types.BoolType;
 import model.types.IntType;
+import model.types.ReferenceType;
 import model.types.StringType;
 import model.values.BoolValue;
 import model.values.IntValue;
 import model.values.StringValue;
 import repository.IRepository;
 import repository.Repository;
-
-import java.io.IOException;
 
 class Interpreter {
     public static void main(String[] args) {
@@ -56,21 +52,88 @@ class Interpreter {
                                                                 new CompoundStatement(new ReadNumberFromFile(new VariableExpression("varf"), "varc"),
                                                                         new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
                                                                                 new CloseReadFile(new VariableExpression("varf"))
-                                                                                ))))))));
+                                                                        ))))))));
 
-        IRepository repository1 = new Repository(programForFileOperationTesting, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile1.txt");
-        IRepository repository2 = new Repository(program2, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile2.txt");
-        IRepository repository3 = new Repository(program3, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile3.txt");
+        IStatement heapAllocationExample = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType()))),
+                                new CompoundStatement(new HeapAllocationStatement("a", new VariableExpression("v")),
+                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                new PrintStatement(new VariableExpression("a"))))
+                        )
+                )
+        );
 
+        IStatement heapReadingExample = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType()))),
+                                new CompoundStatement(new HeapAllocationStatement("a", new VariableExpression("v")),
+                                        new CompoundStatement(new PrintStatement(new HeapReadingExpression(new VariableExpression("v"))),
+                                                new PrintStatement(new ArithmeticExpression('+', new HeapReadingExpression(new HeapReadingExpression(new VariableExpression("a"))),
+                                                        new ValueExpression(new IntValue(5)))
+                                                )
+                                        )
+                                )
+                        )
+                ));
+
+        IStatement heapWritingExample = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new PrintStatement(new HeapReadingExpression(new VariableExpression("v"))),
+                                new CompoundStatement(new HeapWritingStatement("v", new ValueExpression(new IntValue(30))),
+                                        new PrintStatement(new ArithmeticExpression('+', new HeapReadingExpression(new VariableExpression("v")),
+                                                new ValueExpression(new IntValue(5)))
+                                        ))
+                        )
+                )
+        );
+
+        IStatement whileExample = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(4))),
+                        new CompoundStatement(new WhileStatement(new RelationalExpression(">",
+                                new VariableExpression("v"), new ValueExpression(new IntValue(0))),
+                                new CompoundStatement(
+                                        new PrintStatement(new VariableExpression("v")),
+                                        new AssignmentStatement("v", new ArithmeticExpression('-',
+                                                new VariableExpression("v"), new ValueExpression(new IntValue(1))))
+                                )), new PrintStatement(new VariableExpression("v"))
+                        )
+                )
+        );
+
+        IStatement garbageCollectorExample = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType()))),
+                                new CompoundStatement(new HeapAllocationStatement("a", new VariableExpression("v")),
+                                        new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(30))),
+                                                new CompoundStatement(new VariableDeclarationStatement("b", new ReferenceType(new IntType())),
+                                                        new CompoundStatement(new HeapAllocationStatement("b", new ValueExpression(new IntValue(5))),
+                                                                new CompoundStatement(new AssignmentStatement("b", new VariableExpression("v")),
+                                                                        new PrintStatement(new HeapReadingExpression(new HeapReadingExpression(new VariableExpression("a")))))
+                                                        )
+                                                )
+                                        )
+                                ))));
+
+        IRepository repository1 = new Repository(heapWritingExample, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile1.txt");
+        IRepository repository2 = new Repository(heapAllocationExample, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile2.txt");
+        IRepository repository3 = new Repository(heapReadingExample, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile3.txt");
+        IRepository repository4 = new Repository(whileExample, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile4.txt");
+        IRepository repository5 = new Repository(garbageCollectorExample, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile5.txt");
 
         Controller controller1 = new Controller(repository1);
         Controller controller2 = new Controller(repository2);
         Controller controller3 = new Controller(repository3);
+        Controller controller4 = new Controller(repository4);
+        Controller controller5 = new Controller(repository5);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
-        menu.addCommand(new RunExampleCommand("1", programForFileOperationTesting.toString(), controller1));
-        menu.addCommand(new RunExampleCommand("2", program2.toString(), controller2));
-        menu.addCommand(new RunExampleCommand("3", program3.toString(), controller3));
+        menu.addCommand(new RunExampleCommand("1", heapWritingExample.toString(), controller1));
+        menu.addCommand(new RunExampleCommand("2", heapAllocationExample.toString(), controller2));
+        menu.addCommand(new RunExampleCommand("3", heapReadingExample.toString(), controller3));
+        menu.addCommand(new RunExampleCommand("4", whileExample.toString(), controller4));
+        menu.addCommand(new RunExampleCommand("5", garbageCollectorExample.toString(), controller5));
         menu.show();
 
     }

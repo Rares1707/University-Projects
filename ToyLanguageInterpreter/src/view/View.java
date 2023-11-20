@@ -13,7 +13,7 @@ public class View {
         this.controller = controller;
     }
 
-    public void startProgram() throws MyException, IOException {
+    public void startProgram() throws MyException {
         while (true)
         {
             System.out.println("Enter the index of the program (1 to " +

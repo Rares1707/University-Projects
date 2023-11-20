@@ -7,4 +7,5 @@ public interface IFileTable {
     boolean	isEmpty();
     BufferedReader put(String key, BufferedReader value);
     BufferedReader remove(String key);
+    void clear();
 }

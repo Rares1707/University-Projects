@@ -1,144 +1,120 @@
-Execution Stack: [(string varf;(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))))]
+Execution Stack: [(Ref int v;(new(v, 20);(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5)))))]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))), string varf]
+Execution Stack: [(new(v, 20);(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5)))), Ref int v]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))))]
-Symbol Table: {varf=}
+Execution Stack: [(new(v, 20);(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5))))]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))), varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in]
-Symbol Table: {varf=}
+Execution Stack: [(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5))), new(v, 20)]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Execution Stack: [(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5)))]
+Symbol Table: {v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))), openReadFile(varf)]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Execution Stack: [(writeHeap(v, 30);print(readHeap(v)+5)), print(readHeap(v))]
+Symbol Table: {v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
+Execution Stack: [(writeHeap(v, 30);print(readHeap(v)+5))]
+Symbol Table: {v=(1, int)}
+Output: [20]
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))), int varc]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
+Execution Stack: [print(readHeap(v)+5), writeHeap(v, 30)]
+Symbol Table: {v=(1, int)}
+Output: [20]
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))]
-Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf)))), read(varf, varc)]
-Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf))))]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(read(varf, varc);(print(varc);close(varf))), print(varc)]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(read(varf, varc);(print(varc);close(varf)))]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [(print(varc);close(varf)), read(varf, varc)]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [(print(varc);close(varf))]
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [close(varf), print(varc)]
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [close(varf)]
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15, 50]
+Execution Stack: [print(readHeap(v)+5)]
+Symbol Table: {v=(1, int)}
+Output: [20]
+FileTable: []
+MyHeap: {1->30; }
 
 Execution Stack: []
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15, 50]
+Symbol Table: {v=(1, int)}
+Output: [20, 35]
+FileTable: []
+MyHeap: {1->30; }
 
-Execution Stack: [(string varf;(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))))]
+Execution Stack: [(Ref int v;(new(v, 20);(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5)))))]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))), string varf]
+Execution Stack: [(new(v, 20);(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5)))), Ref int v]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in;(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))))]
-Symbol Table: {varf=}
+Execution Stack: [(new(v, 20);(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5))))]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))), varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in]
-Symbol Table: {varf=}
+Execution Stack: [(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5))), new(v, 20)]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(openReadFile(varf);(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))))]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Execution Stack: [(print(readHeap(v));(writeHeap(v, 30);print(readHeap(v)+5)))]
+Symbol Table: {v=(2, int)}
 Output: []
+FileTable: []
+MyHeap: {2->20; }
 
-Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))), openReadFile(varf)]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
+Execution Stack: [(writeHeap(v, 30);print(readHeap(v)+5)), print(readHeap(v))]
+Symbol Table: {v=(2, int)}
 Output: []
+FileTable: []
+MyHeap: {2->20; }
 
-Execution Stack: [(int varc;(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))))]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
+Execution Stack: [(writeHeap(v, 30);print(readHeap(v)+5))]
+Symbol Table: {v=(2, int)}
+Output: [20]
+FileTable: []
+MyHeap: {2->20; }
 
-Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf))))), int varc]
-Symbol Table: {varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
+Execution Stack: [print(readHeap(v)+5), writeHeap(v, 30)]
+Symbol Table: {v=(2, int)}
+Output: [20]
+FileTable: []
+MyHeap: {2->20; }
 
-Execution Stack: [(read(varf, varc);(print(varc);(read(varf, varc);(print(varc);close(varf)))))]
-Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf)))), read(varf, varc)]
-Symbol Table: {varc=0, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(print(varc);(read(varf, varc);(print(varc);close(varf))))]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(read(varf, varc);(print(varc);close(varf))), print(varc)]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: []
-
-Execution Stack: [(read(varf, varc);(print(varc);close(varf)))]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [(print(varc);close(varf)), read(varf, varc)]
-Symbol Table: {varc=15, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [(print(varc);close(varf))]
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [close(varf), print(varc)]
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15]
-
-Execution Stack: [close(varf)]
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15, 50]
+Execution Stack: [print(readHeap(v)+5)]
+Symbol Table: {v=(2, int)}
+Output: [20]
+FileTable: []
+MyHeap: {2->30; }
 
 Execution Stack: []
-Symbol Table: {varc=50, varf=C:\Users\Rares\IdeaProjects\ToyLanguageInterpreter\src\textFiles\text.in}
-Output: [15, 50]
+Symbol Table: {v=(2, int)}
+Output: [20, 35]
+FileTable: []
+MyHeap: {2->30; }
 

@@ -1,44 +1,72 @@
-Execution Stack: [(bool a;(int v;(a=true;(if (a) then {v=2} else {v=3};print(v)))))]
+Execution Stack: [(Ref int v;(new(v, 20);(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))))))]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(int v;(a=true;(if (a) then {v=2} else {v=3};print(v)))), bool a]
+Execution Stack: [(new(v, 20);(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))))), Ref int v]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(int v;(a=true;(if (a) then {v=2} else {v=3};print(v))))]
-Symbol Table: {a=false}
+Execution Stack: [(new(v, 20);(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5)))))]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(a=true;(if (a) then {v=2} else {v=3};print(v))), int v]
-Symbol Table: {a=false}
+Execution Stack: [(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5)))), new(v, 20)]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(a=true;(if (a) then {v=2} else {v=3};print(v)))]
-Symbol Table: {a=false, v=0}
+Execution Stack: [(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))))]
+Symbol Table: {v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(if (a) then {v=2} else {v=3};print(v)), a=true]
-Symbol Table: {a=false, v=0}
+Execution Stack: [(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))), Ref Ref int a]
+Symbol Table: {v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(if (a) then {v=2} else {v=3};print(v))]
-Symbol Table: {a=true, v=0}
+Execution Stack: [(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5)))]
+Symbol Table: {a=(0, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [print(v), if (a) then {v=2} else {v=3}]
-Symbol Table: {a=true, v=0}
+Execution Stack: [(print(readHeap(v));print(readHeap(readHeap(a))+5)), new(a, v)]
+Symbol Table: {a=(0, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [print(v), v=2]
-Symbol Table: {a=true, v=0}
+Execution Stack: [(print(readHeap(v));print(readHeap(readHeap(a))+5))]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
 
-Execution Stack: [print(v)]
-Symbol Table: {a=true, v=2}
+Execution Stack: [print(readHeap(readHeap(a))+5), print(readHeap(v))]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
+Execution Stack: [print(readHeap(readHeap(a))+5)]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: [20]
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
 
 Execution Stack: []
-Symbol Table: {a=true, v=2}
-Output: [2]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: [20, 25]
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
 

@@ -3,6 +3,7 @@ package model.statements;
 import model.MyException;
 import model.ProgramState;
 import model.expressions.IExpression;
+import model.myADTs.MyIHeap;
 
 
 public class PrintStatement implements IStatement{
@@ -19,7 +20,8 @@ public class PrintStatement implements IStatement{
 
     @Override
     public ProgramState execute(ProgramState state) throws MyException {
-        state.getOutputList().add(expression.evaluate(state.getSymbolTable()));
+        MyIHeap heap = state.getHeap();
+        state.getOutputList().add(expression.evaluate(state.getSymbolTable(), heap));
         return state;
     }
 

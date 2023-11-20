@@ -1,5 +1,8 @@
 package model.myADTs;
 
+import java.util.Collection;
+import java.util.Map;
+
 public interface MyIDictionary <K,V>{
     V get(Object key);
     boolean	isEmpty();
@@ -8,4 +11,6 @@ public interface MyIDictionary <K,V>{
     int	size();
 
     void clear();
+
+    Collection<V> getValues();
 }

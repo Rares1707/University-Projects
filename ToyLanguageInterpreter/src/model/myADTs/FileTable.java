@@ -26,4 +26,16 @@ public class FileTable implements IFileTable{
     public BufferedReader remove(String key) {
         return fileTable.remove(key);
     }
+
+    @Override
+    public void clear() {
+        fileTable.clear();
+    }
+
+    @Override
+    public String toString() {
+        //String fileTableAsString = "FileTable: {";
+        //for (String key: fileTable.k)
+        return  "FileTable: " + fileTable.keySet().toString();
+    }
 }

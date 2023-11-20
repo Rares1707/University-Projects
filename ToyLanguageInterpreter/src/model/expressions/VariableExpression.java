@@ -2,6 +2,7 @@ package model.expressions;
 
 import model.MyException;
 import model.myADTs.MyIDictionary;
+import model.myADTs.MyIHeap;
 import model.values.IValue;
 
 public class VariableExpression implements IExpression{
@@ -12,9 +13,8 @@ public class VariableExpression implements IExpression{
     }
 
     @Override
-    public IValue evaluate(MyIDictionary<String, IValue> table) throws MyException {
-        IValue value = table.get(idOfVariable);
-        return value;
+    public IValue evaluate(MyIDictionary<String, IValue> table, MyIHeap heap) throws MyException {
+        return table.get(idOfVariable);
     }
 
     @Override

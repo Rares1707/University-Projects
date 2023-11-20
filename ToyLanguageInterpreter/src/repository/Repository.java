@@ -51,8 +51,10 @@ public class Repository implements IRepository{
         MyIDictionary<String, IValue> symbolTable = new MyDictionary<String, IValue>();
         MyIList<IValue> outputOfProgram = new MyList<IValue>();
         FileTable fileTable = new FileTable();
+        MyIHeap heap = new MyHeap();
 
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputOfProgram, program, fileTable);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputOfProgram,
+                program, fileTable, heap);
         listOfPrograms.add(programState);
     }
 

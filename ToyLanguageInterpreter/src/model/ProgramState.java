@@ -10,16 +10,20 @@ public class ProgramState {
     private MyIList<IValue> outputList;
 
     private FileTable fileTable;
+
+    private MyIHeap heap;
+
     IStatement originalProgram;
 
     public ProgramState(MyIStack<IStatement> stack, MyIDictionary<String, IValue> symbolTable, MyIList<IValue>
-            output, IStatement program, FileTable fileTable){
+            output, IStatement program, FileTable fileTable, MyIHeap heap){
         executionStack = stack;
         this.symbolTable = symbolTable;
         this.outputList = output;
         originalProgram=program.deepCopy();
         stack.push(program);
         this.fileTable = fileTable;
+        this.heap = heap;
     }
 
     public void resetProgramState()
@@ -27,6 +31,8 @@ public class ProgramState {
         executionStack.clear();
         symbolTable.clear();
         outputList.clear();
+        fileTable.clear();
+        heap.clear();
         executionStack.push(originalProgram.deepCopy());
     }
 
@@ -67,9 +73,19 @@ public class ProgramState {
         return outputList;
     }
 
+    public MyIHeap getHeap() {
+        return heap;
+    }
+
+    public void setHeap(MyIHeap heap) {
+        this.heap = heap;
+    }
+
     @Override
     public String toString() {
-        return executionStack.toString() + '\n' + symbolTable.toString() + '\n' + outputList.toString();
+        return executionStack.toString() + '\n' + symbolTable.toString() + '\n' +
+                outputList.toString() + '\n' + fileTable.toString() + '\n' + heap.toString();
     }
+
 
 }

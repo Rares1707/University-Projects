@@ -6,13 +6,12 @@ import model.expressions.VariableExpression;
 import model.statements.*;
 import model.types.BoolType;
 import model.types.IntType;
+import model.types.ReferenceType;
 import model.values.BoolValue;
 import model.values.IntValue;
 import view.View;
 import repository.IRepository;
 import repository.Repository;
-
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws MyException {
@@ -43,6 +42,7 @@ public class Main {
                                         new AssignmentStatement("v", new ValueExpression(new IntValue(3)))),
                                         new PrintStatement(new VariableExpression("v"))))));
 
+
         IRepository repository = new Repository(program1, "C:\\Users\\Rares\\IdeaProjects\\ToyLanguageInterpreter\\src\\textFiles\\logFile1.txt");
         repository.addProgram(program2);
         repository.addProgram(program3);
@@ -56,8 +56,6 @@ public class Main {
         catch (MyException error)
         {
             System.out.println(error.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

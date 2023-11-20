@@ -3,6 +3,7 @@ package model.statements;
 import model.MyException;
 import model.ProgramState;
 import model.expressions.IExpression;
+import model.myADTs.MyIHeap;
 import model.types.BoolType;
 import model.values.BoolValue;
 
@@ -30,11 +31,12 @@ public class IfStatement implements IStatement{
 
     @Override
     public ProgramState execute(ProgramState state) throws MyException {
-        if (!expression.evaluate(state.getSymbolTable()).getType().equals(new BoolType()))
+        MyIHeap heap = state.getHeap();
+        if (!expression.evaluate(state.getSymbolTable(), heap).getType().equals(new BoolType()))
         {
             throw new MyException("expression is not a boolean");
         }
-        if ( ((BoolValue) expression.evaluate(state.getSymbolTable())).getValue() == true)
+        if ( ((BoolValue) expression.evaluate(state.getSymbolTable(), heap)).getValue() == true)
         {
             state.getStack().push(thenStatement);
         }

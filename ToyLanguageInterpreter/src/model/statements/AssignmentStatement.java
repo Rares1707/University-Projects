@@ -5,6 +5,7 @@ import model.MyException;
 import model.ProgramState;
 import model.expressions.IExpression;
 import model.myADTs.MyIDictionary;
+import model.myADTs.MyIHeap;
 import model.myADTs.MyIStack;
 import model.types.IType;
 import model.values.IValue;
@@ -27,10 +28,11 @@ public class AssignmentStatement implements IStatement{
     public ProgramState execute(ProgramState state) throws MyException
     {
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
+        MyIHeap heap = state.getHeap();
 
         if (symbolTable.get(idOfVariable) != null)
         {
-            IValue value = expressionToBeAssigned.evaluate(symbolTable);
+            IValue value = expressionToBeAssigned.evaluate(symbolTable, heap);
             IType typeOfVariable = symbolTable.get(idOfVariable).getType();
             if (value.getType().equals(typeOfVariable))
             {
@@ -55,5 +57,5 @@ public class AssignmentStatement implements IStatement{
         return new AssignmentStatement(idOfVariable, expressionToBeAssigned.deepCopy());
     }
 
-    //TODO deepcopy()
+
 }

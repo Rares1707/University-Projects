@@ -2,6 +2,7 @@ package model.expressions;
 
 import model.MyException;
 import model.myADTs.MyIDictionary;
+import model.myADTs.MyIHeap;
 import model.types.BoolType;
 import model.types.IntType;
 import model.values.BoolValue;
@@ -30,11 +31,10 @@ public class LogicExpression implements IExpression{
     }
 
     @Override
-    public IValue evaluate(MyIDictionary<String, IValue> table) throws MyException {
+    public IValue evaluate(MyIDictionary<String, IValue> table, MyIHeap heap) throws MyException {
         IValue firstValue, secondValue;
-        firstValue = firstExpression.evaluate(table);
-        secondValue = secondExpression.evaluate(table);
-
+        firstValue = firstExpression.evaluate(table, heap);
+        secondValue = secondExpression.evaluate(table, heap);
 
         if (operator != '|' && operator != '&')
         {

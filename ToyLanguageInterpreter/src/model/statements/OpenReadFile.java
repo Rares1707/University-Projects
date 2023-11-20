@@ -3,6 +3,7 @@ package model.statements;
 import model.MyException;
 import model.ProgramState;
 import model.expressions.IExpression;
+import model.myADTs.MyIHeap;
 import model.types.StringType;
 import model.values.IValue;
 import model.values.StringValue;
@@ -21,7 +22,8 @@ public class OpenReadFile implements IStatement{
 
     @Override
     public ProgramState execute(ProgramState state) throws MyException {
-        IValue evaluatedExpression = expression.evaluate(state.getSymbolTable());
+        MyIHeap heap = state.getHeap();
+        IValue evaluatedExpression = expression.evaluate(state.getSymbolTable(), heap);
         if (evaluatedExpression.getType().equals(new StringType()))
         {
             String fileName = ((StringValue) evaluatedExpression).getValue();

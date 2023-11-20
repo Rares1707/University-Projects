@@ -1,7 +1,6 @@
 package model.myADTs;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.*;
 
 public class MyDictionary <K, V> implements MyIDictionary<K, V>{
     private Hashtable<K, V> dictionary;
@@ -38,6 +37,11 @@ public class MyDictionary <K, V> implements MyIDictionary<K, V>{
     @Override
     public void clear() {
         dictionary.clear();
+    }
+
+    @Override
+    public Collection<V> getValues() {
+        return dictionary.values();
     }
 
     @Override

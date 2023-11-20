@@ -2,6 +2,7 @@ package model.expressions;
 
 import model.MyException;
 import model.myADTs.MyIDictionary;
+import model.myADTs.MyIHeap;
 import model.types.BoolType;
 import model.types.IntType;
 import model.values.BoolValue;
@@ -20,13 +21,10 @@ public class RelationalExpression implements IExpression{
     }
 
     @Override
-    public IValue evaluate(MyIDictionary<String, IValue> table) throws MyException {
-        if (operator != "<" && operator != "<=" && operator != ">=" && operator != ">"
-                && operator != "==" && operator != "!=")
-            throw new MyException("operator not supported");
+    public IValue evaluate(MyIDictionary<String, IValue> table, MyIHeap heap) throws MyException {
 
-        IValue firstValue = firstExpression.evaluate(table);
-        IValue secondValue = secondExpression.evaluate(table);
+        IValue firstValue = firstExpression.evaluate(table, heap);
+        IValue secondValue = secondExpression.evaluate(table, heap);
         if (firstValue.getType().equals(secondValue.getType()) && firstValue.getType().equals(new IntType()))
         {
             int firstValueAsInt = ((IntValue) firstValue).getValue();
@@ -43,12 +41,12 @@ public class RelationalExpression implements IExpression{
                 return new BoolValue(firstValueAsInt>secondValueAsInt);
             if (operator.equals(">="))
                 return new BoolValue(firstValueAsInt>=secondValueAsInt);
+            throw new MyException("operator not supported");
         }
         else
         {
             throw new MyException("both operands should be of type int");
         }
-        return null;
     }
 
     @Override

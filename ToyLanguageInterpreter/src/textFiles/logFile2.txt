@@ -1,80 +1,72 @@
-Execution Stack: [(int a;(int b;(a=2+3*5;(b=a+1;print(b)))))]
+Execution Stack: [(Ref int v;(new(v, 20);(Ref Ref int a;(new(a, v);(print(v);print(a))))))]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b)))), int a]
+Execution Stack: [(new(v, 20);(Ref Ref int a;(new(a, v);(print(v);print(a))))), Ref int v]
 Symbol Table: {}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b))))]
-Symbol Table: {a=0}
+Execution Stack: [(new(v, 20);(Ref Ref int a;(new(a, v);(print(v);print(a)))))]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(a=2+3*5;(b=a+1;print(b))), int b]
-Symbol Table: {a=0}
+Execution Stack: [(Ref Ref int a;(new(a, v);(print(v);print(a)))), new(v, 20)]
+Symbol Table: {v=(0, int)}
 Output: []
+FileTable: []
+MyHeap: {}
 
-Execution Stack: [(a=2+3*5;(b=a+1;print(b)))]
-Symbol Table: {b=0, a=0}
+Execution Stack: [(Ref Ref int a;(new(a, v);(print(v);print(a))))]
+Symbol Table: {v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(b=a+1;print(b)), a=2+3*5]
-Symbol Table: {b=0, a=0}
+Execution Stack: [(new(a, v);(print(v);print(a))), Ref Ref int a]
+Symbol Table: {v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [(b=a+1;print(b))]
-Symbol Table: {b=0, a=17}
+Execution Stack: [(new(a, v);(print(v);print(a)))]
+Symbol Table: {a=(0, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [print(b), b=a+1]
-Symbol Table: {b=0, a=17}
+Execution Stack: [(print(v);print(a)), new(a, v)]
+Symbol Table: {a=(0, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; }
 
-Execution Stack: [print(b)]
-Symbol Table: {b=18, a=17}
+Execution Stack: [(print(v);print(a))]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
 Output: []
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
+Execution Stack: [print(a), print(v)]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
+Execution Stack: [print(a)]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: [(1, int)]
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
 
 Execution Stack: []
-Symbol Table: {b=18, a=17}
-Output: [18]
-
-Execution Stack: [(int a;(int b;(a=2+3*5;(b=a+1;print(b)))))]
-Symbol Table: {}
-Output: []
-
-Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b)))), int a]
-Symbol Table: {}
-Output: []
-
-Execution Stack: [(int b;(a=2+3*5;(b=a+1;print(b))))]
-Symbol Table: {a=0}
-Output: []
-
-Execution Stack: [(a=2+3*5;(b=a+1;print(b))), int b]
-Symbol Table: {a=0}
-Output: []
-
-Execution Stack: [(a=2+3*5;(b=a+1;print(b)))]
-Symbol Table: {b=0, a=0}
-Output: []
-
-Execution Stack: [(b=a+1;print(b)), a=2+3*5]
-Symbol Table: {b=0, a=0}
-Output: []
-
-Execution Stack: [(b=a+1;print(b))]
-Symbol Table: {b=0, a=17}
-Output: []
-
-Execution Stack: [print(b), b=a+1]
-Symbol Table: {b=0, a=17}
-Output: []
-
-Execution Stack: [print(b)]
-Symbol Table: {b=18, a=17}
-Output: []
-
-Execution Stack: []
-Symbol Table: {b=18, a=17}
-Output: [18]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: [(1, int), (2, Ref int)]
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
 
