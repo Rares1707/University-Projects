@@ -1,0 +1,84 @@
+Program state ID: 3
+Execution Stack: [(Ref int v;(new(v, 20);(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))))))]
+Symbol Table: {}
+Output: []
+FileTable: []
+MyHeap: {}
+
+Program state ID: 3
+Execution Stack: [(new(v, 20);(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))))), Ref int v]
+Symbol Table: {}
+Output: []
+FileTable: []
+MyHeap: {}
+
+Program state ID: 3
+Execution Stack: [(new(v, 20);(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5)))))]
+Symbol Table: {v=(0, int)}
+Output: []
+FileTable: []
+MyHeap: {}
+
+Program state ID: 3
+Execution Stack: [(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5)))), new(v, 20)]
+Symbol Table: {v=(0, int)}
+Output: []
+FileTable: []
+MyHeap: {}
+
+Program state ID: 3
+Execution Stack: [(Ref Ref int a;(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))))]
+Symbol Table: {v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; }
+
+Program state ID: 3
+Execution Stack: [(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5))), Ref Ref int a]
+Symbol Table: {v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; }
+
+Program state ID: 3
+Execution Stack: [(new(a, v);(print(readHeap(v));print(readHeap(readHeap(a))+5)))]
+Symbol Table: {a=(0, Ref int), v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; }
+
+Program state ID: 3
+Execution Stack: [(print(readHeap(v));print(readHeap(readHeap(a))+5)), new(a, v)]
+Symbol Table: {a=(0, Ref int), v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; }
+
+Program state ID: 3
+Execution Stack: [(print(readHeap(v));print(readHeap(readHeap(a))+5))]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
+Program state ID: 3
+Execution Stack: [print(readHeap(readHeap(a))+5), print(readHeap(v))]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: []
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
+Program state ID: 3
+Execution Stack: [print(readHeap(readHeap(a))+5)]
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: [20]
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
+Program state ID: 3
+Execution Stack: []
+Symbol Table: {a=(2, Ref int), v=(1, int)}
+Output: [20, 25]
+FileTable: []
+MyHeap: {1->20; 2->(1, int); }
+
