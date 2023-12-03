@@ -1,1 +1,1 @@
-For the time being I only use this so I don't delete my homework by mistake. This repository DOES NOT contain all of my university projects, only the ones I am currently working on.
+For the time being, I only use this to prevent accidentally deleting my homework. This repository contains only the university projects I am currently working on, NOT all of them.
