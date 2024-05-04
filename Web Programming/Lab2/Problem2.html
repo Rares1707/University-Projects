@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+<style>
+
+	.center{
+		position: fixed;
+		width: 200px;
+		height: 200px;
+  		top: 50%;
+  		left: 50%;
+  		transform: translate(-50%, -50%);
+  		background-color: red;
+	}	
+
+	@keyframes topLeft{
+		from{}
+		to{position: fixed; left: 0%; top: 0%;}
+	}
+	@keyframes topRight{
+		from{}
+		to{position: fixed; left: 100%; top: 0%;}
+	}
+	@keyframes bottomLeft{
+		from{}
+		to{position: fixed; left: 0%; top: 100%;}
+	}
+	@keyframes bottomRight{
+		from{}
+		to{position: fixed; left: 100%; top: 100%;}
+	}
+
+
+	#container{
+		position: absolute;
+		width: 200px;	
+		height: 200px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	#container:hover 
+	{
+		width: 85%;
+		height: 85%;
+	}
+
+	#container:hover #firstDiv{
+		animation: topLeft 2s;
+	} 
+	#container:hover #secondDiv{
+		animation: topRight 2s;
+	}
+	#container:hover #fourthDiv{
+		animation: bottomLeft 2s;
+	}
+	#container:hover #thirdDiv{
+		animation: bottomRight 2s;
+	}
+</style>
+</head>
+
+<div id="container">
+	<div id="fourthDiv" class="center">
+		text1
+	</div>
+
+	<div id="thirdDiv" class="center">
+		text12
+	</div>
+
+	<div id="secondDiv" class="center">
+		text123
+	</div>
+
+	<div id="firstDiv" class="center">
+		text1234
+	</div>
+</div>
+

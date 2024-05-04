@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="menu">
+        <div id="menu1-title">Menu 1</div>
+        <div id="menu1-items" class="menu-items">
+            1 
+            <br/>
+            2 
+            <br/>
+            3
+        </div>
+    </div>
+    <div class="menu">
+        <div id="menu2-title">Menu 2</div>
+        <div id="menu2-items" class="menu-items">
+            a
+            <br/>
+            b 
+            <br/>
+            c
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".menu").css({
+                "display": "inline-block"
+            })
+
+            $(".menu-items").css({
+                "display": "none",
+                "position": "absolute",
+            })
+
+            $("#menu1-title").click(function() {
+                $("#menu1-items").slideToggle(300)
+            })
+
+            $("#menu2-title").click(function() {
+                $("#menu2-items").slideToggle(300)
+            })
+        })
+    </script>
+</body>
+</html>

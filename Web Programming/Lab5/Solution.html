@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div>
+        <select
+                id="firstList"
+                ondblclick="transferElement('firstList', 'secondList')">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+        <select
+            id="secondList"
+            ondblclick="transferElement('secondList', 'firstList')">
+            <option>a</option>
+            <option>b</option>
+            <option>c</option>
+        </select>
+    </div>
+
+    <script>
+        function transferElement(sourceID, destinationID)
+        {
+            const source = document.getElementById(sourceID)
+            const destination = document.getElementById(destinationID)
+            const selectedElement = source.options[source.selectedIndex]
+            
+            source.removeChild(selectedElement)
+            destination.appendChild(selectedElement)
+        }
+    </script>
+</body>
+
+<html/>
