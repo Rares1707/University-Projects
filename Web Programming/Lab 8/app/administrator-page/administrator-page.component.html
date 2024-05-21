@@ -1,0 +1,50 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<table id = 'recordTable' border='1'>
+  <tr> <th>Id</th> <th>Author Email</th> <th>Title</th> <th>Comment</th> <th>Date</th>
+  <tr class="tableRow" *ngFor="let record of records" (click)="selectRecord(record) ">
+    <td>{{record.id}}</td>
+    <td>{{record.author_email}}</td>
+    <td>{{record.title}}</td>
+    <td>{{record.comment}}</td>
+    <td>{{record.date}}</td>
+</table>
+
+<button (click)="previousPage()">Previous Page</button>
+<button (click)="nextPage()">Next Page</button><br>
+
+<input type="checkbox" id="sortByAuthorCheckbox"
+       [checked]="sortByAuthorCheckboxIsChecked" (click)="checkSortByAuthor()"/>
+<label>Sort by author</label> <br>
+<input type="checkbox" id="sortByTitleCheckbox"
+       [checked]="sortByTitleCheckboxIsChecked" (click)="checkSortByTitle()"/>
+<label>Sort by title</label> <br>
+
+<button [routerLink]="['/role-selection']"> Home </button>
+
+<dialog id='myDialog' [open]="mainDialogIsOpen">
+  Author (email): <input type="email" name="author" [(ngModel)]="selectedRecord.author_email" required><br>
+  Title: <input type="text" name="title" [(ngModel)]="selectedRecord.title" required><br>
+  Comment: <input type="text" name="comment" [(ngModel)]="selectedRecord.comment" required><br>
+  Date and time: <input type="datetime-local" name="datetime" [(ngModel)]="selectedRecord.date" required><br>
+  <button id="updateButton" (click)="openConfirmUpdateDialog()">Update</button>
+  <button id="removeButton" (click)="openConfirmRemoveDialog()">Remove</button>
+  <button id="closeDialogButton" (click)="closeMainDialog()">Cancel</button>
+</dialog>
+
+<dialog id='confirmRemoveDialog' [open]="confirmRemoveDialogIsOpen">
+  Confirm remove?<br>
+  <button id='confirmRemoveButton' (click)="confirmRecordRemove()">Yes</button>
+  <button (click)="closeConfirmRemoveDialog()">No</button>
+</dialog>
+
+<dialog id='confirmUpdateDialog' [open]="confirmUpdateDialogIsOpen">
+  Confirm update?<br>
+  <button id='confirmUpdateButton' (click)="confirmRecordUpdate()">Yes</button>
+  <button (click)="closeConfirmUpdateDialog()">No</button>
+</dialog>
+
+
+
+
+
