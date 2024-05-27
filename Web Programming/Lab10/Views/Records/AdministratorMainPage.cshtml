@@ -1,0 +1,251 @@
+
+
+@{
+    ViewData["Title"] = "AdministratorMainPage";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<table id = 'recordTable' border='1'> <tr> <th>Id</th> <th>Author Email</th> <th>Title</th> <th>Comment</th> <th>Date</th></table>
+<button onclick="previousPage()">Previous Page</button>
+<button onclick="nextPage()">Next Page</button><br>
+<input type="checkbox" id="sortByAuthorCheckbox"/>    
+<label>Sort by author</label> <br>  
+<input type="checkbox" id="sortByTitleCheckbox"/>    
+<label>Sort by title</label> <br>  
+<button onclick="window.location.href = 'SelectRolePage.html'"> Home </button>
+
+
+<style>
+    #myDialog 
+    {
+        width: 400px;
+        height: 300px;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="datetime-local"] 
+    {
+        display: block;
+        width: 100%;
+        padding: 5px; 
+    }
+</style>
+
+<dialog id='confirmRemoveDialog'>
+    Confirm remove?<br>
+    <button id='confirmRemoveButton'>Yes</button>
+    <button onclick="document.getElementById('confirmRemoveDialog').close()">No</button>
+</dialog>
+
+<dialog id='confirmUpdateDialog'>
+    Confirm update?<br>
+    <button id='confirmUpdateButton'>Yes</button>
+    <button onclick="document.getElementById('confirmUpdateDialog').close()">No</button>
+</dialog>
+
+<dialog id='myDialog'>
+    Author (email): <input type="email" name="author" value="2" required><br>
+    Title: <input type="text" name="title" required><br>
+    Comment: <input type="text" name="comment" required></input><br>
+    Date and time: <input type="datetime-local" name="datetime" required></input><br>
+    <button id="updateButton">Update</button>
+    <button id="removeButton">Remove</button>
+    <button id="closeDialogButton" onclick="closeMainDialog()">Cancel</button>
+</dialog>
+
+<script>
+const FIRST_PAGE_NUMBER = 1
+const TABLE_ROW_CLASS = 'tableRow'
+const VIEW_RECORD_PAGE_URL = 'ViewRecordPage.php'
+let currentPageNumber = FIRST_PAGE_NUMBER
+let idOfSelectedRecord = 0
+
+async function getRecords(pageNumber) {
+    fetchArguments = { page: pageNumber }
+    if ($('#sortByTitleCheckbox')[0].checked == true)
+    {
+        fetchArguments.sortingType = 'byTitle'
+    }
+    else if ($('#sortByAuthorCheckbox')[0].checked == true)
+    {
+        fetchArguments['sortingType'] = 'byAuthor'
+    }
+    else fetchArguments.sortingType = 'none'
+    return await $.get(
+            'GetRecords?pageNumber=' + pageNumber + '&sortingType=' + fetchArguments.sortingType,
+        //fetchArguments,
+        function (data, status) {
+            return data
+        }
+    );
+}
+
+function removeElementsByClass(className) {
+    const elements = document.getElementsByClassName(className);
+    while (elements.length > 0) {
+        elements[0].remove();
+    }
+}
+
+function nextPage()
+{
+    currentPageNumber++
+    populateTable(currentPageNumber)
+    //exception cases are treated in populateTable()
+}
+
+function previousPage()
+{
+    if (currentPageNumber > FIRST_PAGE_NUMBER)
+    {
+        currentPageNumber--;
+    }
+    populateTable(currentPageNumber)
+}
+
+async function removeRecord(recordId)
+{
+    return await $.ajax({
+        url: 'Delete/' + recordId,
+        type: 'DELETE',
+        success: function (data, status) {
+            alert('status: ' + status)
+            return status
+        }
+    })
+}
+
+    async function updateRecord(recordId, newAuthor, newTitle, newComment, newDatetime) {
+        return await $.ajax({
+            url: 'Update/' + recordId,
+            type: 'PUT',
+            data: {
+                Id: recordId,
+                Email: newAuthor,
+                Title: newTitle,
+                Comment: newComment,
+                Date: newDatetime
+            },
+            success: function (data, status) {
+                alert('status: ' + status)
+                return status
+            }})
+}
+
+function bindActionsToCheckboxes()
+{
+    $('#sortByAuthorCheckbox').click(() =>  
+    {
+        if (document.getElementById('sortByAuthorCheckbox').checked == true)
+        {
+            $('#sortByTitleCheckbox')[0].checked = false
+        }
+        populateTable(currentPageNumber)
+    })
+    $('#sortByTitleCheckbox').click(() => 
+    {
+        if ($('#sortByTitleCheckbox')[0].checked == true)
+        {
+            $('#sortByAuthorCheckbox')[0].checked = false
+        }
+        populateTable(currentPageNumber)
+    })
+}
+
+async function populateTable(pageNumber)
+{
+    const promise = getRecords(pageNumber)
+    promise.then(records =>
+    {
+        records = JSON.parse(records)
+        if (Object.keys(records).length === 0)
+        {
+                currentPageNumber--;
+                return;
+        }
+        const table = document.getElementById('recordTable');
+        removeElementsByClass(TABLE_ROW_CLASS)
+        records.forEach(record => 
+        {
+            const tr = document.createElement('tr');
+            tr.classList.add(TABLE_ROW_CLASS)
+            tr.onclick = () => 
+            {
+                const myDialog = document.getElementById('myDialog')
+                $(document).ready(function()
+                {
+                    $('input[name="author"]').val(Object.values(record)[1]);
+                    $('input[name="title"]').val(Object.values(record)[2]);
+                    $('input[name="comment"]').val(Object.values(record)[3]);
+                    $('input[name="datetime"]').val(Object.values(record)[4]);
+
+                    idOfSelectedRecord = Object.values(record)[0]
+                    $('#removeButton').click(() =>  
+                    {
+                        confirmationDialog = document.getElementById('confirmRemoveDialog')
+                        confirmationDialog.showModal()
+                        document.getElementById('confirmRemoveButton').onclick = () =>
+                        {
+                            const removePromise = removeRecord(idOfSelectedRecord)
+                            removePromise.then(response =>
+                            {
+                                populateTable(FIRST_PAGE_NUMBER)
+                                confirmationDialog.close()
+                                closeMainDialog()
+                            })
+                        }
+                    })
+                    
+                    $('#updateButton').click(() => {
+                        confirmationDialog = document.getElementById('confirmUpdateDialog')
+                        confirmationDialog.showModal()
+                        document.getElementById('confirmUpdateButton').onclick = () =>
+                        {
+                            const authorInput = $('input[name="author"]').val();
+                            const titleInput = $('input[name="title"]').val();
+                            const commentInput = $('input[name="comment"]').val();
+                            const datetimeInput = $('input[name="datetime"]').val();
+
+                            const updatePromise = updateRecord(idOfSelectedRecord, authorInput, titleInput, commentInput, datetimeInput)
+                            updatePromise.then(response =>
+                            {
+                                populateTable(currentPageNumber)
+                                confirmationDialog.close()
+                                closeMainDialog()
+                            })
+                        }
+                    })
+                })
+                myDialog.show()
+            }
+            Object.values(record).forEach(cell =>
+            {
+                const th = document.createElement('th');
+                th.textContent = `${cell}`
+                tr.appendChild(th)
+            })
+            table.appendChild(tr)
+        });
+    })
+}
+
+
+function closeMainDialog() {
+    document.getElementById("myDialog").close();
+}
+
+$(document).ready(function () 
+{
+    bindActionsToCheckboxes()
+    populateTable(FIRST_PAGE_NUMBER)
+})
+
+</script>
+
+</html>
