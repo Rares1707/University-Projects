@@ -16,7 +16,10 @@
 <section id="comments-section"></section>
 
 <%! User user; %>
-<%  user = (User) session.getAttribute("user");%>
+<%  user = (User) session.getAttribute("user");
+    if (user != null) {
+%>
+
 <div id="userId" data-id="<%= user.getId() %>" style="display: none;"></div>
 
 <br/>
@@ -111,3 +114,7 @@
 </script>
 </body>
 </html>
+
+<%
+    }
+%>

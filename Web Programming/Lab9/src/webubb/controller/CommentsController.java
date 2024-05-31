@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import webubb.domain.Comment;
 import webubb.domain.Topic;
+import webubb.domain.User;
 import webubb.model.DBManager;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,18 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class CommentsController extends HttpServlet {
+    private boolean userIsAuthenticated(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user==null) {
+            return false;
+        }
+        return true;
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!userIsAuthenticated(request)) {
+            return;
+        }
         int topicId = Integer.parseInt(request.getParameter("topicId"));
 
         if (topicId != 0) {
@@ -38,6 +50,10 @@ public class CommentsController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!userIsAuthenticated(request)) {
+            return;
+        }
+
         String commentText = request.getParameter("text");
         int topicId = Integer.parseInt(request.getParameter("topic_id"));
         int userId = Integer.parseInt(request.getParameter("user_id"));
@@ -55,6 +71,10 @@ public class CommentsController extends HttpServlet {
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!userIsAuthenticated(request)) {
+            return;
+        }
+
         System.out.println(request.getParameter("id"));
         int commentId = Integer.parseInt(request.getParameter("id"));
         DBManager dbmanager = new DBManager();

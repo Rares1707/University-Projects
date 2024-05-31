@@ -40,8 +40,8 @@ public class LoginController extends HttpServlet {
             // ... and then, in all JSP/Servlet pages we should check if the "user" attribute exists in the session
             // and if not, we should return/exit the method:
             // HttpSession session = request.getSession();
-            // String user = session.getAttribute("user");
-            // if (user==null || user.equals("")) {
+            // User user = (User) session.getAttribute("user");
+            // if (user==null) {
             //        return;
             // }
         } else {
@@ -68,5 +68,4 @@ public class LoginController extends HttpServlet {
         rd.forward(request, response);
         response.sendRedirect("/RoutesController");
     }
-
 }
