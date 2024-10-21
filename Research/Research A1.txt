@@ -1,0 +1,10 @@
+Weight Agnostic Neural Networks with Discontinuous Activations
+
+AMS: 
+	68T07 Artificial neural networks and deep learning
+	68T05 Learning and adaptive systems in artificial intelligence
+ACM:
+	Computing methodologies Artificial intelligence Search methodologies
+	Computing methodologies Artificial intelligence Computer Vision
+	Computing methodologies Machine learning Learning paradigms Supervised learning
+	Computing methodologiesMachine learning Machine learning approaches Neural networks
