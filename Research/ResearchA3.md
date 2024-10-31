@@ -100,3 +100,6 @@
 
 <a id="18"></a>
 [18] Hines, Michael L., and Nicholas T. Carnevale. "The NEURON simulation environment." Neural computation 9, no. 6 (1997): 1179-1209.
+
+<a id="19"></a>
+[19] Hanin, Boris. "Universal function approximation by deep neural nets with bounded width and relu activations." Mathematics 7, no. 10 (2019): 992.
