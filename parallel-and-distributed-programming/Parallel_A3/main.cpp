@@ -6,10 +6,15 @@
 #include "mutex"
 #include "condition_variable"
 #include "list"
+#include "fstream"
 
 using namespace std;
 
-int TRIALS = 100;
+int TRIALS = 1;
+int NUMBER_OF_THREADS = 3;
+int FINAL_MATRIX_SIZE = 1000;
+int OFFSET = FINAL_MATRIX_SIZE / NUMBER_OF_THREADS;
+int ELEMENTS_PER_THREAD = FINAL_MATRIX_SIZE * FINAL_MATRIX_SIZE / NUMBER_OF_THREADS;
 
 int computeElement(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2, int i, int j)
 {
@@ -128,40 +133,44 @@ private:
     std::vector<std::thread> m_threads;
 };
 
-void classicRowByRow(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2,
+double classicRowByRow(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2,
                      vector<vector<int>>& resultingMatrix)
 {
     double sum = 0;
+    vector<thread> threads;
     for (int i = 0; i < TRIALS; i++)
     {
         auto start = std::chrono::high_resolution_clock ::now();
-        thread t1(computeElementsRowAfterRow, ref(matrix1), ref(matrix2), 0, 27, ref(resultingMatrix));
-        thread t2(computeElementsRowAfterRow, ref(matrix1), ref(matrix2), 3, 27, ref(resultingMatrix));
-        thread t3(computeElementsRowAfterRow, ref(matrix1), ref(matrix2), 6, 27, ref(resultingMatrix));
-        t1.join();
-        t2.join();
-        t3.join();
+        for (int j = 0; j < NUMBER_OF_THREADS; j++)
+        {
+            threads.emplace_back(computeElementsRowAfterRow, ref(matrix1), ref(matrix2), j * OFFSET
+                                 , ELEMENTS_PER_THREAD, ref(resultingMatrix));
+        }
+        for (thread& t : threads)
+        {
+            t.join();
+        }
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
         sum += duration.count();
     }
     std::cout << "Classic row by row: " << sum / TRIALS << " ms\n";
+    return 1.0 * sum / TRIALS;
 }
 
-void poolRowByRow(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2,
+double poolRowByRow(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2,
                   vector<vector<int>>& resultingMatrix)
 {
     double sum = 0;
     for (int i = 0; i < TRIALS; i++)
     {
-        ThreadPool pool(3);
+        ThreadPool pool(NUMBER_OF_THREADS);
         auto start = std::chrono::high_resolution_clock ::now();
-        int finalMatrixDimensions = 9;
-        for (unsigned i = 0; i < finalMatrixDimensions; ++i) {
+        for (unsigned i = 0; i < FINAL_MATRIX_SIZE; ++i) {
             auto matrixRef = ref(resultingMatrix);
-            pool.enqueue([matrix1, matrix2, i, matrixRef, finalMatrixDimensions]()
+            pool.enqueue([matrix1, matrix2, i, matrixRef]()
             {
-                computeElementsRowAfterRow(matrix1, matrix2, i, finalMatrixDimensions, matrixRef);
+                computeElementsRowAfterRow(matrix1, matrix2, i, FINAL_MATRIX_SIZE, matrixRef);
             });
         }
         pool.close();
@@ -170,21 +179,26 @@ void poolRowByRow(const vector<vector<int>>& matrix1, const vector<vector<int>>&
         sum += duration.count();
     }
     std::cout << "Pool row by row: " << sum / TRIALS << " ms\n";
+    return 1.0 * sum / TRIALS;
 }
 
 void classicColumnByColumn(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2,
                      vector<vector<int>>& resultingMatrix)
 {
     double sum = 0;
+    vector<thread> threads;
     for (int i = 0; i < TRIALS; i++)
     {
         auto start = std::chrono::high_resolution_clock ::now();
-        thread t1(computeElementsColumnAfterColumn, ref(matrix1), ref(matrix2), 0, 27, ref(resultingMatrix));
-        thread t2(computeElementsColumnAfterColumn, ref(matrix1), ref(matrix2), 3, 27, ref(resultingMatrix));
-        thread t3(computeElementsColumnAfterColumn, ref(matrix1), ref(matrix2), 6, 27, ref(resultingMatrix));
-        t1.join();
-        t2.join();
-        t3.join();
+        for (int j = 0; j < NUMBER_OF_THREADS; j++)
+        {
+            threads.emplace_back(computeElementsColumnAfterColumn, ref(matrix1), ref(matrix2), j * OFFSET
+                    , ELEMENTS_PER_THREAD, ref(resultingMatrix));
+        }
+        for (thread& t : threads)
+        {
+            t.join();
+        }
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
         sum += duration.count();
@@ -198,15 +212,13 @@ void poolColumnByColumn(const vector<vector<int>>& matrix1, const vector<vector<
     double sum = 0;
     for (int i = 0; i < TRIALS; i++)
     {
-        ThreadPool pool(3);
+        ThreadPool pool(NUMBER_OF_THREADS);
         auto start = std::chrono::high_resolution_clock ::now();
-        // [i, lenPerThread, iterations]() {func(lenPerThread * i, lenPerThread, iterations); }
-        int finalMatrixDimensions = 9;
-        for (unsigned i = 0; i < finalMatrixDimensions; ++i) {
+        for (unsigned i = 0; i < FINAL_MATRIX_SIZE; ++i) {
             auto matrixRef = ref(resultingMatrix);
-            pool.enqueue([matrix1, matrix2, i, matrixRef, finalMatrixDimensions]()
+            pool.enqueue([matrix1, matrix2, i, matrixRef]()
                          {
-                             computeElementsColumnAfterColumn(matrix1, matrix2, i, finalMatrixDimensions, matrixRef);
+                             computeElementsColumnAfterColumn(matrix1, matrix2, i, FINAL_MATRIX_SIZE, matrixRef);
                          });
         }
         pool.close();
@@ -224,9 +236,9 @@ void classicEveryKthElement(const vector<vector<int>>& matrix1, const vector<vec
     for (int i = 0; i < TRIALS; i++)
     {
         auto start = std::chrono::high_resolution_clock ::now();
-        thread t1(computeEveryKthElement, ref(matrix1), ref(matrix2), k, 0, 27, ref(resultingMatrix));
-        thread t2(computeEveryKthElement, ref(matrix1), ref(matrix2), k, 1, 27, ref(resultingMatrix));
-        thread t3(computeEveryKthElement, ref(matrix1), ref(matrix2), k, 2, 27, ref(resultingMatrix));
+        thread t1(computeEveryKthElement, ref(matrix1), ref(matrix2), k, 0, 333*333, ref(resultingMatrix));
+        thread t2(computeEveryKthElement, ref(matrix1), ref(matrix2), k, 1, 333*333, ref(resultingMatrix));
+        thread t3(computeEveryKthElement, ref(matrix1), ref(matrix2), k, 2, 344*344, ref(resultingMatrix));
         t1.join();
         t2.join();
         t3.join();
@@ -250,7 +262,7 @@ void poolEveryKthElement(const vector<vector<int>>& matrix1, const vector<vector
             auto matrixRef = ref(resultingMatrix);
             pool.enqueue([matrix1, matrix2, i, matrixRef, k]()
                          {
-                             computeEveryKthElement(matrix1, matrix2, k, i, 27, matrixRef);
+                             computeEveryKthElement(matrix1, matrix2, k, i, 333*333, matrixRef);
                          });
         }
         pool.close();
@@ -263,47 +275,61 @@ void poolEveryKthElement(const vector<vector<int>>& matrix1, const vector<vector
 
 // m,n * n,p = m,p
 int main() {
-    vector<vector<int>> matrix1 =
-    {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9},
-        {10, 11, 12},
-        {13, 14, 15},
-        {16, 17, 18},
-        {19, 20, 21},
-        {22, 23, 24},
-        {25, 26, 27}
-    };
+    vector<vector<int>> matrix1 = std::vector<std::vector<int>> (1000, std::vector<int>(1000, 1));
+//    {
+//        {1, 2, 3},
+//        {4, 5, 6},
+//        {7, 8, 9},
+//        {10, 11, 12},
+//        {13, 14, 15},
+//        {16, 17, 18},
+//        {19, 20, 21},
+//        {22, 23, 24},
+//        {25, 26, 27}
+//    };
 
-    vector<vector<int>> matrix2 =
-    {
-        {1, 2, 3, 4, 5, 6, 7, 8, 9},
-        {10, 11, 12, 13, 14, 15, 16, 17, 18},
-        {19, 20, 21, 22, 23, 24, 25, 26, 27}
-    };
+    vector<vector<int>> matrix2 = std::vector<std::vector<int>> (1000, std::vector<int>(1000, 1));
+//    {
+//        {1, 2, 3, 4, 5, 6, 7, 8, 9},
+//        {10, 11, 12, 13, 14, 15, 16, 17, 18},
+//        {19, 20, 21, 22, 23, 24, 25, 26, 27}
+//    };
 
-    std::vector<std::vector<int>> resultingMatrix(9, std::vector<int>(9, 0));
+    std::vector<std::vector<int>> resultingMatrix(1000, std::vector<int>(1000, 0));
+    ofstream fout;
+    fout.open("out.txt");
+    for (int i = 1; i <= 16; i++)
+    {
+        NUMBER_OF_THREADS = i;
+        OFFSET = FINAL_MATRIX_SIZE / NUMBER_OF_THREADS;
+        ELEMENTS_PER_THREAD = FINAL_MATRIX_SIZE * FINAL_MATRIX_SIZE / NUMBER_OF_THREADS;
+        std::vector<std::vector<int>> resultingMatrix(1000, std::vector<int>(1000, 0));
+        fout << i << ' ' << classicRowByRow(matrix1, matrix2, resultingMatrix)
+            << ' ' << poolRowByRow(matrix1, matrix2, resultingMatrix) << '\n';
+    }
+    fout.close();
+
+    return 0;
     classicRowByRow(matrix1, matrix2, resultingMatrix);
     //printMatrix(resultingMatrix);
     
-    resultingMatrix = std::vector<std::vector<int>>(9, std::vector<int>(9, 0));
+    resultingMatrix = std::vector<std::vector<int>>(1000, std::vector<int>(1000, 0));
     classicColumnByColumn(matrix1, matrix2, resultingMatrix);
     //printMatrix(resultingMatrix);
 
-    resultingMatrix = std::vector<std::vector<int>>(9, std::vector<int>(9, 0));
+    resultingMatrix = std::vector<std::vector<int>>(1000, std::vector<int>(1000, 0));
     classicEveryKthElement(matrix1, matrix2, resultingMatrix, 3);
    // printMatrix(resultingMatrix);
 
-    resultingMatrix = std::vector<std::vector<int>>(9, std::vector<int>(9, 0));
+    resultingMatrix = std::vector<std::vector<int>>(1000, std::vector<int>(1000, 0));
     poolRowByRow(matrix1, matrix2, resultingMatrix);
     //printMatrix(resultingMatrix);
 
-    resultingMatrix = std::vector<std::vector<int>>(9, std::vector<int>(9, 0));
+    resultingMatrix = std::vector<std::vector<int>>(1000, std::vector<int>(1000, 0));
     poolColumnByColumn(matrix1, matrix2, resultingMatrix);
     //printMatrix(resultingMatrix);
 
-    resultingMatrix = std::vector<std::vector<int>>(9, std::vector<int>(9, 0));
+    resultingMatrix = std::vector<std::vector<int>>(1000, std::vector<int>(1000, 0));
     poolEveryKthElement(matrix1, matrix2, resultingMatrix, 3);
     //printMatrix(resultingMatrix);
 
