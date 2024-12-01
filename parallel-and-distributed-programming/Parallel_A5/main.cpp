@@ -29,8 +29,8 @@ vector<int> multiplyPolynomials(const vector<int>& A, const vector<int>& B) {
 void multiplyPart(const vector<int>& A, const vector<int>& B, vector<int>& result, int start, int end) {
     // multiplies part of the first polynomial with the second polynomial
     int m = B.size();
-    for (int i = start; i < end; ++i) {
-        for (int j = 0; j < m; ++j) {
+    for (int i = start; i < end; i++) {
+        for (int j = 0; j < m; j++) {
             result[i + j] += A[i] * B[j];
         }
     }
@@ -44,9 +44,15 @@ vector<int> multiplyPolynomialsParallel(const vector<int>& A, const vector<int>&
     vector<thread> threads;
     int partSize = n / NUM_THREADS;
 
-    for (int i = 0; i < NUM_THREADS; ++i) {
+    for (int i = 0; i < NUM_THREADS; i++) {
         int start = i * partSize;
-        int end = (i == NUM_THREADS - 1) ? n : (i + 1) * partSize;
+        int end;
+        if (i == NUM_THREADS - 1){
+            end = n;
+        }
+        else{
+            end = (i + 1) * partSize;
+        }
         threads.push_back(thread(multiplyPart, cref(A), cref(B), ref(result), start, end));
     }
 
@@ -64,7 +70,7 @@ vector<int> multiplyPolynomialsParallel(const vector<int>& A, const vector<int>&
 vector<int> addPolynomials(const vector<int>& A, const vector<int>& B) {
     int n = max(A.size(), B.size());
     vector<int> result(n, 0);
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         if (i < A.size()){
             result[i] += A[i];
         }
@@ -78,7 +84,7 @@ vector<int> addPolynomials(const vector<int>& A, const vector<int>& B) {
 vector<int> subtractPolynomials(const vector<int>& A, const vector<int>& B) {
     int n = max(A.size(), B.size());
     vector<int> result(n, 0);
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         if (i < A.size()){
             result[i] += A[i];
         }
@@ -90,6 +96,7 @@ vector<int> subtractPolynomials(const vector<int>& A, const vector<int>& B) {
 }
 
 vector<int> karatsuba(const vector<int>& A, const vector<int>& B) {
+    // 1 and 2 from the lecture are reversed (for P1, P2, A1 etc.)
     int n = max(A.size(), B.size());
     if (n < 100)
     {
@@ -112,9 +119,15 @@ vector<int> karatsuba(const vector<int>& A, const vector<int>& B) {
     vector<int> second_term = subtractPolynomials(temp, addPolynomials(P1, P2));
 
     vector<int> result(2 * n - 1, 0);
-    for (int i = 0; i < P1.size(); ++i) result[i + 2 * half] += P1[i];
-    for (int i = 0; i < second_term.size(); ++i) result[i + half] += second_term[i];
-    for (int i = 0; i < P2.size(); ++i) result[i] += P2[i];
+    for (int i = 0; i < P1.size(); i++){
+        result[i + 2 * half] += P1[i];
+    }
+    for (int i = 0; i < second_term.size(); i++){
+        result[i + half] += second_term[i];
+    }
+    for (int i = 0; i < P2.size(); i++){
+        result[i] += P2[i];
+    }
 
     return result;
 }
@@ -127,7 +140,7 @@ vector<int> karatsubaParallel(const vector<int>& A, const vector<int>& B);
 void karatsubaHelper(const vector<int>& A, const vector<int>& B, vector<int>& result, int start, int end) {
     //used for computing P1 and P2 on other threads
     vector<int> tempResult = karatsuba(vector<int>(A.begin() + start, A.begin() + end), vector<int>(B.begin() + start, B.begin() + end));
-    for (int i = 0; i < tempResult.size(); ++i) {
+    for (int i = 0; i < tempResult.size(); i++) {
         result[start + i] += tempResult[i];
     }
 }
@@ -160,9 +173,9 @@ vector<int> karatsubaParallel(const vector<int>& A, const vector<int>& B) {
     vector<int> second_part = subtractPolynomials(temp, addPolynomials(P1, P2));
 
     vector<int> result(2 * n - 1, 0);
-    for (int i = 0; i < P1.size(); ++i) result[i] += P1[i];
-    for (int i = 0; i < second_part.size(); ++i) result[i + half] += second_part[i];
-    for (int i = 0; i < P2.size(); ++i) result[i + 2 * half] += P2[i];
+    for (int i = 0; i < P1.size(); i++) result[i] += P1[i];
+    for (int i = 0; i < second_part.size(); i++) result[i + half] += second_part[i];
+    for (int i = 0; i < P2.size(); i++) result[i + 2 * half] += P2[i];
 
     return result;
 }
