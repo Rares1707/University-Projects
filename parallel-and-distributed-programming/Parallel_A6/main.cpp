@@ -5,6 +5,8 @@
 #include <atomic>
 #include <mutex>
 #include <chrono>
+#include <algorithm>
+#include <random>
 
 using namespace std;
 
@@ -81,6 +83,40 @@ public:
     }
 };
 
+//def generate_random_edges(self, edges: int):
+//"""Randomly generate edges until the graph has the required number of edges."""
+//possible_edges = [(u, v) for u in range(self.vertices) for v in range(self.vertices) if u != v]
+//random.shuffle(possible_edges)
+//
+//for u, v in possible_edges:
+//if self.get_edge_count() >= edges:
+//break
+//self.add_edge(u, v)
+
+std::vector<std::vector<int>> generate_graph(int numberOfVertices, int numberOfEdges){
+    vector<vector<int>> graph(numberOfVertices, std::vector<int>(numberOfVertices, 0));
+    vector<pair<int, int>> possibleEdges;
+    bool finished = false;
+    for (int i = 0; i < numberOfVertices && !finished; i++){
+        for (int j = 0; j < numberOfVertices && !finished; j++){
+//            if (possibleEdges.size() >= numberOfEdges){
+//                finished = true;
+//                break;
+//            }
+            if (i != j){
+                possibleEdges.emplace_back(i, j);
+            }
+        }
+    }
+    auto rng = default_random_engine {};
+    std::ranges::shuffle(possibleEdges, rng);
+    for (int i = 0; i < numberOfEdges; i++){
+        pair<int, int> edge = possibleEdges[i];
+        graph[edge.first][edge.second] = 1;
+    }
+    return graph;
+}
+
 int main() {
     std::vector<std::vector<int>> graph = { // graph from https://www.pbinfo.ro/articole/5790/graf-hamiltonian
         {0, 1, 1, 0, 0, 0},
@@ -92,8 +128,9 @@ int main() {
     };
     int n = 100;
     vector<vector<int>> bigGraph(n, std::vector<int>(n, 0));
+    auto randomGraph = generate_graph(40, 100);
 
-    HamiltonianCycle hamiltonianCycle(graph);
+    HamiltonianCycle hamiltonianCycle(randomGraph);
 
     auto start = chrono::high_resolution_clock::now();
     hamiltonianCycle.solve(6);
