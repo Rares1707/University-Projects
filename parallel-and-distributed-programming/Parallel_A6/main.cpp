@@ -128,7 +128,7 @@ int main() {
     };
     int n = 100;
     vector<vector<int>> bigGraph(n, std::vector<int>(n, 0));
-    auto randomGraph = generate_graph(40, 100);
+    auto randomGraph = generate_graph(50, 100);
 
     HamiltonianCycle hamiltonianCycle(randomGraph);
 
